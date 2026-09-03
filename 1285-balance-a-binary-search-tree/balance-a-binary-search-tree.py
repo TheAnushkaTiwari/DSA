@@ -6,20 +6,24 @@
 #         self.right = right
 class Solution:
     def balanceBST(self, root: Optional[TreeNode]) -> Optional[TreeNode]:
+        nums=[]
         def inorderTraversal(node):
-            if node is None:
-                return []
-            return (inorderTraversal(node.left) + [node.val] + inorderTraversal(node.right))
-        def make_balanced_bst(nums):
-            if not nums:
+            if not node:
+                return
+            inorderTraversal(node.left)
+            nums.append(node.val)
+            inorderTraversal(node.right)
+        inorderTraversal(root)
+            
+        def make_balanced_bst(left,right):
+            if left>right:
                 return None
-            mid=len(nums)//2
+            mid=(left+right)//2
             node=TreeNode(nums[mid])
-            node.left= make_balanced_bst(nums[:mid])
-            node.right= make_balanced_bst(nums[mid+1:])
+            node.left= make_balanced_bst(left,mid-1)
+            node.right= make_balanced_bst(mid+1,right)
             return node
-        nums=inorderTraversal(root)
-        return make_balanced_bst(nums)
+        return make_balanced_bst(0,len(nums)-1)
 
         
         
