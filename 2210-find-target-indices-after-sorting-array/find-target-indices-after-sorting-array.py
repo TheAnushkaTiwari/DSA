@@ -10,3 +10,4 @@ class Solution:
             if nums[j]==target:
                 result.append(j)
         return result
+        
